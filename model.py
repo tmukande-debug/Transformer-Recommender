@@ -18,58 +18,6 @@ from nfnets.agc import AGC
 #from conformer import ConformerEncoder
 from x_transformers import TransformerWrapper, Encoder
 
-# class Conformer(nn.Module):
-#     def __init__(self, dim, depth,
-#                 heads, dim_head,
-#                 dropout, kernel_size=31,
-#                 causal=False):
-#         self.layers = nn.ModuleList([])
-
-#         for _ in range(depth):
-#             self.layers.append(ConformerBlock())
-    
-#     def forward(self, x):
-#         for layer in self.layers:
-#             x = layer(x) + x
-
-#         return x
-
-
-# class ConformerEncoder(nn.Module):
-#     def __init__(self, *, num_tokens, num_classes, dim, depth, heads, dim_head=64, dropout=0., emb_dropout=0., kernel_size=31, causal=False):
-#         super().__init__()
-
-#         self.item_embed = nn.Embedding(num_tokens, dim)
-#         self.pos_emb = FixedPositionalEmbedding(dim)
-#         self.cls_token = nn.Parameter(torch.randn(1, 1, dim))
-#         self.dropout = nn.Dropout(emb_dropout)
-
-#         self.transformer = Conformer(
-#             dim, depth, heads, dim_head, dropout, kernel_size, causal)
-
-#         self.mlp = nn.Sequential(
-#                 nn.LayerNorm(dim),
-#                 nn.Linear(dim, dim // 2),
-#                 nn.ELU(inplace=True),
-#                 nn.Linear(dim // 2, dim),
-#             )
-
-#     def forward(self, x, mask=None):
-
-#         b, n = x.shape
-#         pos_emb = self.pos_emb(x)
-#         x = pos_emb + self.item_embed(x)
-    
-
-#         cls_tokens = repeat(self.cls_token, '() n d -> b n d', b=b)
-#         x = torch.cat((cls_tokens, x), dim=1)
-#         x = self.dropout(x)
-
-#         x = self.transformer(x, mask)
-#         x = x.mean(dim=1)
-#         decoder_out = self.mlp(x)
-#         return decoder_out
-
 
 
 class SelfAttentionNetwork(Module):
