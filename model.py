@@ -85,7 +85,7 @@ class SelfAttentionNetwork(Module):
         #self.transformerEncoder = ConformerEncoder(
         self.transformerEncoder = Encoder(
             input_dim = self.n_node,
-            dim = 128,
+            dim = self.hidden_size * opt.feedforward,
             depth=6,
             num_layers = opt.layer, 
             num_attention_heads = opt.nhead,
