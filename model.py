@@ -15,8 +15,8 @@ import torch.nn.functional as F
 # from torch.nn import TransformerEncoder
 # from torch.nn import TransformerEncoderLayer
 from nfnets.agc import AGC
-from conformer import ConformerEncoder
-
+#from conformer import ConformerEncoder
+from x_transformers import TransformerWrapper, Encoder
 
 # class Conformer(nn.Module):
 #     def __init__(self, dim, depth,
@@ -82,7 +82,8 @@ class SelfAttentionNetwork(Module):
         # self.transformerEncoderLayer = TransformerEncoderLayer(d_model=self.hidden_size, nhead=opt.nhead,dim_feedforward=self.hidden_size * opt.feedforward)
         # self.transformerEncoder = TransformerEncoder(self.transformerEncoderLayer, opt.layer)
         # print(self.n_node)
-        self.transformerEncoder = ConformerEncoder(
+        #self.transformerEncoder = ConformerEncoder(
+        self.transformerEncoder = Encoder(
             input_dim = self.n_node,
             encoder_dim = 128,
             num_layers = opt.layer, 
