@@ -31,9 +31,9 @@ class SelfAttentionNetwork(Module):
         self.n_node = n_node
         self.batch_size = opt.batchSize
         # self.embedding = nn.Embedding(self.n_node, self.hidden_size)
-        self.transformerEncoderLayer = TransformerEncoderLayer(dim=self.hidden_size, ema_heads=opt.nhead, dim_feedforward=self.hidden_size * opt.feedforward)
-        # self.transformerEncoder = TransformerEncoder(self.transformerEncoderLayer, opt.layer)
-        self.transformerEncoder = Mega(self.transformerEncoderLayer, opt.layer)
+        #self.transformerEncoderLayer = TransformerEncoderLayer(dim=self.hidden_size, ema_heads=opt.nhead, dim_feedforward=self.hidden_size * opt.feedforward)
+        # self.transformerEncoder = TransformerEncoder(dim=self.hidden_size, ema_heads=opt.nhead, dim_feedforward=self.hidden_size * opt.feedforward, opt.layer)
+        self.transformerEncoder = Mega(dim=self.hidden_size, ema_heads=opt.nhead, dim_feedforward=self.hidden_size * opt.feedforward, opt.layer)
         # print(self.n_node)
         
             
