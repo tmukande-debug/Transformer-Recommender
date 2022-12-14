@@ -63,7 +63,7 @@ class SelfAttentionNetwork(Module):
     #     hidden = hidden.transpose(0,1).contiguous()
     #     return hidden
 
-    def forward(self, x):
+    def forward(self, i):
         # print(inputs.size())
         hidden = self.transformerEncoder(x)
         # hidden = hidden.transpose(0,1).contiguous()
