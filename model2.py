@@ -65,7 +65,7 @@ class SelfAttentionNetwork(Module):
 
     def forward(self, i):
         # print(inputs.size())
-        hidden = self.transformerEncoder(x)
+        hidden = self.transformerEncoder(i)
         # hidden = hidden.transpose(0,1).contiguous()
         # print(hidden.size())
         hidden = torch.matmul(hidden, self.transformerEncoder.item_embed.weight[1:].transpose(1, 0)) # weight tying
