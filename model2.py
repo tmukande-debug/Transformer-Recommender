@@ -33,7 +33,7 @@ class SelfAttentionNetwork(Module):
         # self.embedding = nn.Embedding(self.n_node, self.hidden_size)
         #self.transformerEncoderLayer = TransformerEncoderLayer(dim=self.hidden_size, num_tokens = 256,  depth = 6, ema_heads=opt.nhead, dim_feedforward=self.hidden_size * opt.feedforward)
         # self.transformerEncoder = TransformerEncoder(dim=self.hidden_size, ema_heads=opt.nhead, dim_feedforward=self.hidden_size * opt.feedforward)
-        self.transformerEncoder = Mega(dim=self.hidden_size, ema_heads=opt.nhead, dim_feedforward=self.hidden_size * opt.feedforward, num_tokens = 256,  depth = 6)
+        self.transformerEncoder = Mega(dim=self.hidden_size, ema_heads=opt.nhead, attn_dim_qk=self.hidden_size * opt.feedforward, num_tokens = 256,  depth = 6)
         # print(self.n_node)
         
             
