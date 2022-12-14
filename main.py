@@ -47,8 +47,8 @@ def main():
         n_node = 37484
 
 
-    #model = trans_to_cuda(SelfAttentionNetwork(opt, n_node))
-    model = trans_to_cuda(flash_cosine_sim_attention(opt, n_node))
+    model = trans_to_cuda(SelfAttentionNetwork(opt, n_node))
+    #model = trans_to_cuda(flash_cosine_sim_attention(opt, n_node))
    
     start = time.time()
     best_result = [0, 0]
