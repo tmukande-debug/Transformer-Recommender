@@ -87,3 +87,54 @@ def trans_to_cpu(variable):
         return variable.cpu()
     else:
         return variable
+
+    
+def forward(model, i, data):
+    alias_inputs, A, items, mask, targets = data.get_slice(i)
+    # alias_inputs = trans_to_cuda(torch.Tensor(alias_inputs).long())
+    # print(len(targets))
+    items = trans_to_cuda(torch.Tensor(items).long())
+    # A = trans_to_cuda(torch.Tensor(A).float())
+    mask = trans_to_cuda(torch.Tensor(mask).long())
+    hidden = model(items)
+    hidden = hidden.mean(dim=1)
+    # get = lambda i: hidden[i][alias_inputs[i]]
+    # seq_hidden = torch.stack([get(i) for i in torch.arange(len(alias_inputs)).long()])
+    return targets, hidden # model.compute_scores(seq_hidden, mask)
+
+
+def train_test(model, train_data, test_data):    
+    print('start training: ', datetime.datetime.now())
+    model.train()
+    total_loss = 0.0
+    slices = train_data.generate_batch(model.batch_size)
+    for i, j in zip(slices, np.arange(len(slices))):
+        model.optimizer.zero_grad()
+        targets, scores = forward(model, i, train_data)
+        targets = trans_to_cuda(torch.Tensor(targets).long())
+        loss = model.loss_function(scores, targets - 1)
+        loss.backward()
+        model.AGC_optim.step()
+        total_loss += loss
+        if j % int(len(slices) / 5 + 1) == 0:
+            print('[%d/%d] Loss: %.4f' % (j, len(slices), loss.item()))
+    print('\tLoss:\t%.3f' % total_loss)
+
+    print('start predicting: ', datetime.datetime.now())
+    model.eval()
+    hit, mrr = [], []
+    slices = test_data.generate_batch(model.batch_size)
+    for i in slices:
+        targets, scores = forward(model, i, test_data)
+        sub_scores = scores.topk(20)[1]
+        sub_scores = trans_to_cpu(sub_scores).detach().numpy()
+        for score, target, mask in zip(sub_scores, targets, test_data.mask):
+            hit.append(np.isin(target - 1, score))
+            if len(np.where(score == target - 1)[0]) == 0:
+                mrr.append(0)
+            else:
+                mrr.append(1 / (np.where(score == target - 1)[0][0] + 1))
+    hit = np.mean(hit) * 100
+    mrr = np.mean(mrr) * 100
+    model.scheduler.step()
+    return hit, mrr
