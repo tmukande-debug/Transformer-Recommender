@@ -16,7 +16,7 @@ import torch.nn.functional as F
 # from torch.nn import TransformerEncoderLayer
 from nfnets.agc import AGC
 #from conformer import ConformerEncoder
-from x_transformers import TransformerWrapper, Encoder
+#from x_transformers import TransformerWrapper, Encoder
 import torch
 #from flash_cosine_sim_attention import flash_cosine_sim_attention
 from mega_pytorch import Mega
