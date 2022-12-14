@@ -5,12 +5,12 @@
 ######################################################
 # Adapted from CRIPAC-DIG/SR-GNN for fair comparison #
 ######################################################
-from flash_cosine_sim_attention import flash_cosine_sim_attention
+#from flash_cosine_sim_attention import flash_cosine_sim_attention
 import argparse
 import pickle
 import time
 from utils import  Data, split_validation
-from model import *
+from model2 import *
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--dataset', default='sample', help='dataset name: diginetica/yoochoose1_64')
