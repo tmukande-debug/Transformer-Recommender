@@ -17,6 +17,10 @@ import torch.nn.functional as F
 from nfnets.agc import AGC
 #from conformer import ConformerEncoder
 from x_transformers import TransformerWrapper, Encoder
+import torch
+from flash_cosine_sim_attention import flash_cosine_sim_attention
+
+
 
 
 
@@ -31,18 +35,7 @@ class SelfAttentionNetwork(Module):
         # self.transformerEncoder = TransformerEncoder(self.transformerEncoderLayer, opt.layer)
         # print(self.n_node)
         #self.transformerEncoder = ConformerEncoder(
-        self.transformerEncoder = Encoder(
-            input_dim = self.n_node,
-            dim = self.hidden_size * opt.feedforward,
-            depth=6,
-            num_layers = opt.layer, 
-            num_attention_heads = opt.nhead,
-            input_dropout_p = 0.1,
-            feed_forward_dropout_p = 0.1,
-            attention_dropout_p = 0.1,
-            conv_dropout_p = 0.1,
-
-        )
+       
         # self.final_linear = nn.Linear(64, 1)
         self.loss_function = nn.CrossEntropyLoss()
         self.optimizer = torch.optim.Adam(self.parameters(), lr=opt.lr, weight_decay=opt.l2)
