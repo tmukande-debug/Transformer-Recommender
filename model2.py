@@ -18,8 +18,8 @@ from nfnets.agc import AGC
 #from conformer import ConformerEncoder
 from x_transformers import TransformerWrapper, Encoder
 import torch
-from flash_cosine_sim_attention import flash_cosine_sim_attention
-
+#from flash_cosine_sim_attention import flash_cosine_sim_attention
+from mega_pytorch import Mega
 
 
 
@@ -31,11 +31,12 @@ class SelfAttentionNetwork(Module):
         self.n_node = n_node
         self.batch_size = opt.batchSize
         # self.embedding = nn.Embedding(self.n_node, self.hidden_size)
-        # self.transformerEncoderLayer = TransformerEncoderLayer(d_model=self.hidden_size, nhead=opt.nhead,dim_feedforward=self.hidden_size * opt.feedforward)
+        self.transformerEncoderLayer = TransformerEncoderLayer(dim=self.hidden_size, ema_heads=opt.nhead, dim_feedforward=self.hidden_size * opt.feedforward)
         # self.transformerEncoder = TransformerEncoder(self.transformerEncoderLayer, opt.layer)
+        self.transformerEncoder = Mega(self.transformerEncoderLayer, opt.layer)
         # print(self.n_node)
-        #self.transformerEncoder = ConformerEncoder(
-       
+        
+            
         # self.final_linear = nn.Linear(64, 1)
         self.loss_function = nn.CrossEntropyLoss()
         self.optimizer = torch.optim.Adam(self.parameters(), lr=opt.lr, weight_decay=opt.l2)
