@@ -14,8 +14,8 @@ from model2 import *
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--dataset', default='sample', help='dataset name: diginetica/yoochoose1_64')
-parser.add_argument('--batchSize', type=int, default=100, help='input batch size')
-parser.add_argument('--hiddenSize', type=int, default=96, help='hidden state size')
+parser.add_argument('--batchSize', type=int, default=1, help='input batch size')
+parser.add_argument('--hiddenSize', type=int, default=32, help='hidden state size')
 parser.add_argument('--nhead', type=int, default=8, help='the number of heads of multi-head attention')
 parser.add_argument('--layer', type=int, default=1, help='number of SAN layers')
 parser.add_argument('--feedforward', type=int, default=4, help='the multipler of hidden state size')
