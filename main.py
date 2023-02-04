@@ -32,12 +32,12 @@ print(opt)
 
 
 def main():
-    train_data = pickle.load(open('/content/Transformer-Recommender/datasets/' + opt.dataset + '/train.txt', 'rb'))
+    train_data = pickle.load(open('/content/Transformer-Recommender/datasets/yoochoose1_64/train.txt')
     if opt.validation:
         train_data, valid_data = split_validation(train_data, opt.valid_portion)
         test_data = valid_data
     else:
-        test_data = pickle.load(open('/content/Transformer-Recommender/datasets/'+ opt.dataset + '/train.txt', 'rb'))
+        test_data = pickle.load(open('/content/Transformer-Recommender/datasets/yoochoose1_64/test.txt')
 
     train_data = Data(train_data, shuffle=True)
     test_data = Data(test_data, shuffle=False)
